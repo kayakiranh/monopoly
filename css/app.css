@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css');
+
+#rules {
+    display: block;
+    background: #fff;
+    position: absolute;
+    left: 50px;
+    top: 120px;
+    background-color: #ecf0f1;
+    width: max-content;
+    height: max-content;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #d35400;
+    color: #2c3e50;
+    border-radius: 10px;
+}
+
+#start {
+    background-color: #ecf0f1;
+    width: max-content;
+    height: max-content;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    top: calc((100% - 240px) / 2);
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #d35400;
+    color: #2c3e50;
+}
+
+#mapSelect {
+    border: 2px solid #d35400;
+    float: left;
+    background-color: #ecf0f1;
+    border-radius: 10px;
+    padding: 5px;
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#startGame, #buyHpLink {
+    text-decoration: none;
+    background-color: #ecf0f1;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 2px solid #d35400;
+    border-radius: 10px;
+    float: right;
+    color: #2c3e50;
+    font-size: 16px;
+}
+
+    #startGame:hover {
+        background-color: #d35400;
+        color: #ecf0f1;
+    }
+
+.startPart {
+    width: 100%;
+    display: block;
+}
+
+    .startPart > p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .startPart:last-child {
+        height: 40px;
+    }
+
+#diceArea {
+    position: absolute;
+    left: 865px;
+    top: 230px;
+    font-size: 14px;
+    padding: 15px;
+    width: 160px;
+    height: 110px;
+    background-color: #d35400;
+    border-radius: 10px;
+}
+
+    #diceArea > p {
+        font-size: 12px;
+        color: #fff;
+    }
+
+#status {
+    background: #fff;
+    position: absolute;
+    left: 50px;
+    font-size: 14px;
+    padding: 15px;
+    background-color: #ecf0f1;
+    width: max-content;
+    height: max-content;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #d35400;
+    color: #2c3e50;
+    border-radius: 10px;
+}
+
+#tarihce {
+    background: #fff;
+    position: absolute;
+    right: 50px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #ecf0f1;
+    width: 470px;
+    border: 2px solid #d35400;
+    color: #2c3e50;
+    border-radius: 10px;
+}
+
+#tarihceLog {
+    overflow-y: scroll;
+    height: max-content;
+    max-height: 650px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+i.fa.fa-heart {
+    color: #c0392b;
+}
+
+#tl {
+    color: #8e44ad;
+}
+
+#hpBar, #tlBar, #buyHp {
+    font-size: 30px;
+    display: inline;
+    margin: 15px;
+}
+
+#player {
+    background-image: url(../image/app/genc.jpg);
+    background-size: contain;
+    width: 55px;
+    height: 60px;
+    position: absolute;
+    top: 760px;
+    left: 1270px;
+    z-index: 999;
+}
+
+    #player:hover {
+        opacity: 0.2;
+    }
+
+
+.hp-p-area {
+    background: #c0392b;
+}
+
+.tl-p-area {
+    background: #8e44ad;
+}
+
+.hp-n-area {
+    background: #f1c40f;
+}
+
+.tl-n-area {
+    background: #2980b9;
+}
+
+
+.card-container {
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-container, .front, .back {
+    width: 153px;
+    height: 114px;
+    position: absolute;
+    left: 872px;
+    top: 564px;
+}
+
+.front, .back {
+    background: #efe;
+}
+
+.card {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.front, .back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.front {
+    z-index: 2;
+    transform: rotateY(0deg);
+    background: #e4002e;
+}
+
+.back {
+    transform: rotateY(180deg);
+    border: 2px solid #e4002e;
+    padding: 5px;
+    background: #fafaf8;
+    color: #080808;
+    font-size: 15px;
+    text-align: center;
+}
+
+.front i {
+    color: #fff;
+    font-size: 100px;
+    margin-left: 48px;
+    margin-top: 7px;
+}
+
+#slider {
+    width: 100%;
+}

@@ -1,0 +1,196 @@
+/*! * Dice (https://github.com/alexerlandsson/dice) * Copyright 2020 Alexander Erlandsson * Licensed under MIT */
+.dice__scene {
+    width: 70px;
+    height: 70px;
+    perspective: 210px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#dice__cube {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: translateZ(-35px);
+    transition: transform ease;
+    transition-duration: 500ms;
+    cursor: pointer;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    #dice__cube {
+        transform-style: flat;
+        transform: none !important;
+    }
+}
+
+@keyframes showSameFont {
+    100% {
+        transform: translateZ(-35px) rotateY(360deg);
+    }
+}
+
+@keyframes showSameRight {
+    100% {
+        transform: translateZ(-35px) rotateY(-450deg);
+    }
+}
+
+@keyframes showSameBack {
+    100% {
+        transform: translateZ(-35px) rotateY(-540deg);
+    }
+}
+
+@keyframes showSameLeft {
+    100% {
+        transform: translateZ(-35px) rotateY(450deg);
+    }
+}
+
+@keyframes showSameTop {
+    100% {
+        transform: translateZ(-35px) rotateX(-450deg);
+    }
+}
+
+@keyframes showSameBottom {
+    100% {
+        transform: translateZ(-35px) rotateX(450deg);
+    }
+}
+
+#dice__cube.show-front {
+    transform: translateZ(-35px) rotateY(0deg);
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    #dice__cube.show-front .dice__side--front {
+        display: block;
+    }
+}
+
+#dice__cube.show-front.show-same {
+    animation: showSameFont 500ms ease;
+}
+
+#dice__cube.show-right {
+    transform: translateZ(-35px) rotateY(-90deg);
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    #dice__cube.show-right .dice__side--right {
+        display: block;
+    }
+}
+
+#dice__cube.show-right.show-same {
+    animation: showSameRight 500ms ease;
+}
+
+#dice__cube.show-back {
+    transform: translateZ(-35px) rotateY(-180deg);
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    #dice__cube.show-back .dice__side--back {
+        display: block;
+    }
+}
+
+#dice__cube.show-back.show-same {
+    animation: showSameBack 500ms ease;
+}
+
+#dice__cube.show-left {
+    transform: translateZ(-35px) rotateY(90deg);
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    #dice__cube.show-left .dice__side--left {
+        display: block;
+    }
+}
+
+#dice__cube.show-left.show-same {
+    animation: showSameLeft 500ms ease;
+}
+
+#dice__cube.show-top {
+    transform: translateZ(-35px) rotateX(-90deg);
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    #dice__cube.show-top .dice__side--top {
+        display: block;
+    }
+}
+
+#dice__cube.show-top.show-same {
+    animation: showSameTop 500ms ease;
+}
+
+#dice__cube.show-bottom {
+    transform: translateZ(-35px) rotateX(90deg);
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    #dice__cube.show-bottom .dice__side--bottom {
+        display: block;
+    }
+}
+
+#dice__cube.show-bottom.show-same {
+    animation: showSameBottom 500ms ease;
+}
+
+.dice__side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: 100% auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.1);
+    user-select: none;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .dice__side {
+        display: none;
+        transform: none !important;
+    }
+}
+
+.dice__side--front {
+    transform: rotateY(0deg) translateZ(35px);
+    background-image: url("../image/dice/dice-1.png");
+}
+
+.dice__side--back {
+    transform: rotateY(180deg) translateZ(35px);
+    background-image: url("../image/dice/dice-6.png");
+}
+
+.dice__side--right {
+    transform: rotateY(90deg) translateZ(35px);
+    background-image: url("../image/dice/dice-4.png");
+}
+
+.dice__side--left {
+    transform: rotateY(-90deg) translateZ(35px);
+    background-image: url("../image/dice/dice-3.png");
+}
+
+.dice__side--top {
+    transform: rotateX(90deg) translateZ(35px);
+    background-image: url("../image/dice/dice-2.png");
+}
+
+.dice__side--bottom {
+    transform: rotateX(-90deg) translateZ(35px);
+    background-image: url("../image/dice/dice-5.png");
+}

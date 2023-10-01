@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Monopoly</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link href="css/table.min.css" rel="stylesheet" />
+    <link href="css/dice.min.css" rel="stylesheet" />
+    <link href="css/app.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="start">
+        <div class="startPart">
+            <p>Hoşgeldiniz,</p>
+            <p>MonoPoly, Türkiye'nin en tehlikeli mahallelerinde hayatta kalma simulatörüdür.</p>
+            <p>100 HP ve 100 ₺ ile başladığınız oyunda 5 dakika hayatta kalmalısınız.</p>
+            <p>Aşağıdaki haritalardan istediğinizi seçip simülatöre geçebilirsiniz;</p>
+        </div>
+        <div class="startPart">
+            <select id="mapSelect">
+                <optgroup label="İstanbul">
+                    <option value="Gazi">Gazi Mahallesi</option>
+                    <option value="Sarigol">Sarıgöl Mahallesi</option>
+                    <option value="Dolapdere">Dolapdere</option>
+                    <option value="Tarlabasi">Tarlabaşı</option>
+                    <option value="Bagcilar">Bağcılar</option>
+                    <option value="Kustepe">Kuştepe</option>
+                    <option value="HaciHusrev">Hacı Hüsrev</option>
+                </optgroup>
+                <optgroup label="Ankara">
+                    <option value="CinCin">Çinçin Mahallesi</option>
+                </optgroup>
+                <optgroup label="İzmir">
+                    <option value="Kadifekale">Kadifekale</option>
+                </optgroup>
+                <optgroup label="Adana">
+                    <option value="Yuregir">Yüreğir Mahallesi</option>
+                </optgroup>
+                <optgroup label="Konya">
+                    <option value="Muhacir">Muhacir Mahallesi</option>
+                    <option value="Doganlar">Doğanlar Mahallesi</option>
+                </optgroup>
+                <optgroup label="Trabzon">
+                    <option value="Comlekci">Çömlekçi</option>
+                    <option value="Faroz">Faroz</option>
+                </optgroup>
+                <optgroup label="Tekirdağ">
+                    <option value="Kore">Kore Mahallesi</option>
+                </optgroup>
+                <optgroup label="Mersin">
+                    <option value="Cilek">Çilek Mahallesi</option>
+                </optgroup>
+                <optgroup label="Samsun">
+                    <option value="Carsamba">Çarşamba</option>
+                </optgroup>
+                <optgroup label="Antalya">
+                    <option value="Zeytinkoy">Zeytinköy</option>
+                </optgroup>
+                <optgroup label="Eskişehir">
+                    <option value="Kuyubasi">Kuyubaşı</option>
+                </optgroup>
+            </select>
+
+            <a href="javascript:void(0);" id="startGame">Başla</a>
+        </div>
+    </div>
+    <div id="rules">
+        <p>MonoPoly, Türkiye'nin en tehlikeli mahallelerinde hayatta kalma simulatörüdür.</p>
+        <p>Süre : 5 Dakika | Can : 100 HP | Para : 100 ₺</p>
+        <hr>
+        <p>Zar atmak için, zara tıklayın yada space tuşuna basın.</p>
+        <p>HP ve ₺ kontrolü :</p>
+        <p>+ Başlangıçtan her geçtiğinde 100 HP can kazanırsın</p>
+        <p>+ Başlangıçtan her geçtiğinde 100 ₺ kazanırsın</p>
+        <p>+ Hastaneye her uğradığında 200 HP can kazanırsın</p>
+        <p>+ Bankaya her uğradığında 300 ₺ para kazanırsın</p>
+        <p>~ Karakola her uğradığında ₺ ve HP kaybetmezsin</p>
+        <p>- Paran bittikten sonra gaspa uğrarsan 50 HP canın azalır</p>
+        <p>~ Şans kartlarından iyi veya kötü kartlar gelebilir</p>
+        <hr />
+        <p>Zar ve oyun için ses seviyesi :</p>
+        <input type="range" class="slider" id="slider" value="100" maxlength="100">
+    </div>
+    <div id="diceArea">
+        <div class="dice__scene">
+            <div id="dice__cube" class="show-front">
+                <div class="dice__side dice__side--front"></div>
+                <div class="dice__side dice__side--back"></div>
+                <div class="dice__side dice__side--right"></div>
+                <div class="dice__side dice__side--left"></div>
+                <div class="dice__side dice__side--top"></div>
+                <div class="dice__side dice__side--bottom"></div>
+            </div>
+        </div>
+
+        <audio preload="auto" id="dice__audio">
+            <source src="sound/dice-sound.mp3" />
+        </audio>
+        <audio preload="auto" id="corner__audio">
+            <source src="sound/corner.mp3" />
+        </audio>
+        <audio preload="auto" id="luck__audio">
+            <source src="sound/luck.mp3" />
+        </audio>
+        <audio preload="auto" id="negative__audio">
+            <source src="sound/negative.mp3" />
+        </audio>
+        <audio preload="auto" id="positive__audio">
+            <source src="sound/positive.mp3" />
+        </audio>
+        <audio preload="auto" id="start__audio">
+            <source src="sound/start.mp3" />
+        </audio>
+        <audio preload="auto" id="dead__audio">
+            <source src="sound/dead.mp3" />
+        </audio>
+    </div>
+    <div id="status">
+        <div id="map">İstanbul - Gazi Mahallesi</div>
+        <div id="hpBar"><i class="fa fa-heart"></i> <span id="finalHp">100</span></div>
+        <div id="tlBar"><span id="tl">&#8378;</span> <span id="finalTl">100</span></div>
+        <div id="buyHp"><a href="javascript:void(0);" id="buyHpLink">20 HP Satın Al (100 ₺)</a></div>
+        <div hidden><span id="lastPoint">0</span></div>
+        <div hidden><span id="totalDice">0</span></div>
+        <div hidden><span id="isSkipStart">0</span></div>
+        <div hidden><span id="lastId">0</span></div>
+    </div>
+    <div id="tarihce">
+        <p>Tarihçe</p>
+        <div id="tarihceLog"></div>
+    </div>
+    <div id="player"></div>
+    <div class="table">
+        <div class="board">
+            <div class="center">
+                <h1 class="title">MonoPoly</h1>
+                <div class="chance-deck">
+                    <h2 class="label">Şans Kartları</h2>
+                    <div class="deck"></div>
+                </div>
+            </div>
+
+            <div class="space corner go" data-id="0" data-hp="100" data-tl="100" data-corner="0" data-top="760px" data-left="1270px" data-text="Başlangıç">
+                <div class="container">
+                    <div class="instructions">+100 HP<br>+100 ₺<br></div>
+                    <div class="go-word">BAŞLANGIÇ</div>
+                </div>
+                <div class="arrow fa fa-long-arrow-left"></div>
+            </div>
+
+            <div class="row horizontal-row bottom-row">
+                <div class="space property" data-id="7" data-hp="-45" data-tl="-80" data-corner="0" data-top="760px" data-left="680px" data-color="color-bar tl-n-area" data-text="Alkollü gençler tarafından gaspedildin">
+                    <div class="container">
+                        <div class="color-bar tl-n-area"></div>
+                        <div class="name">Alkollü gençler tarafından gaspedildin</div>
+                        <div class="price">-45 HP, -80 ₺</div>
+                    </div>
+                </div>
+                <div class="space property" data-id="6" data-hp="0" data-tl="100" data-corner="0" data-top="760px" data-left="765px" data-color="color-bar tl-p-area" data-text="Yerde para buldun">
+                    <div class="container">
+                        <div class="color-bar tl-p-area"></div>
+                        <div class="name three-line-name">Yerde para buldun</div>
+                        <div class="price">100 ₺</div>
+                    </div>
+                </div>
+
+                <div class="space property" data-id="5" data-hp="-40" data-tl="0" data-corner="0" data-top="760px" data-left="845px" data-color="" data-text="Alacak kavgasına karıştın">
+                    <div class="container">
+                        <div class="color-bar hp-n-area"></div>
+                        <div class="name">Alacak kavgasına karıştın</div>
+                        <div class="price">-40 HP</div>
+                    </div>
+                </div>
+                <div class="space chance" data-id="4" data-hp="0" data-tl="0" data-corner="0" data-top="760px" data-left="925px" data-color="" data-text="Şans Kartı Seç">
+                    <div class="container">
+                        <div class="name">Şans Kartı Seç</div>
+                        <i class="drawing fa fa-question"></i>
+                    </div>
+                </div>
+                <div class="space property" data-id="3" data-hp="-15" data-tl="0" data-corner="0" data-top="760px" data-left="1010px" data-color="" data-text="Şizofren komşu saksı attı">
+                    <div class="container">
+                        <div class="color-bar hp-n-area"></div>
+                        <div class="name three-line-name">Şizofren komşu saksı attı</div>
+                        <div class="price">-15 HP</div>
+                    </div>
+                </div>
+                <div class="space property" data-id="2" data-hp="0" data-tl="200" data-corner="0" data-top="760px" data-left="1090px" data-color="" data-text="ATMde para buldun">
+                    <div class="container">
+                        <div class="color-bar hp-p-area"></div>
+                        <div class="name three-line-name">ATMde para buldun</div>
+                        <div class="price">200 ₺</div>
+                    </div>
+                </div>
+                <div class="space property" data-id="1" data-hp="-90" data-tl="-40" data-corner="0" data-top="760px" data-left="1170px" data-color="" data-text="Afganlar saldırdı">
+                    <div class="container">
+                        <div class="color-bar hp-n-area"></div>
+                        <div class="name three-line-name">Afganlar saldırdı</div>
+                        <div class="price">-90 HP, - 40 ₺</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space corner jail" data-hp="0" data-tl="0" data-id="8" data-corner="1" data-top="760px" data-left="575px" data-text="Karakol">
+                <div class="container">
+                    <div class="name">Karakol</div>
+                    <i class="drawing fa fa-building-o"></i>
+                    <div class="name">Karakol</div>
+                </div>
+            </div>
+
+            <div class="row vertical-row left-row">
+                <div class="space property" data-hp="0" data-tl="400" data-id="15" data-corner="0" data-top="170px" data-left="575px" data-color="" data-text="Babandan para çaldın">
+                    <div class="container">
+                        <div class="color-bar tl-p-area"></div>
+                        <div class="name three-line-name">Babandan para çaldın</div>
+                        <div class="price">400 ₺</div>
+                    </div>
+                </div>
+                <div class="space property" data-hp="300" data-tl="-750" data-id="14" data-corner="0" data-top="250px" data-left="575px" data-color="" data-text="Özel hastaneye gittin">
+                    <div class="container">
+                        <div class="color-bar hp-p-area"></div>
+                        <div class="name three-line-name">Özel hastaneye gittin</div>
+                        <div class="price">300 HP, -750 ₺</div>
+                    </div>
+                </div>
+                <div class="space property" data-hp="0" data-tl="-80" data-id="13" data-corner="0" data-top="330px" data-left="575px" data-color="" data-text="Kimliğini evde unuttun">
+                    <div class="container">
+                        <div class="color-bar tl-n-area"></div>
+                        <div class="name three-line-name">Kimliğini evde unuttun</div>
+                        <div class="price">-80 ₺</div>
+                    </div>
+                </div>
+                <div class="space chance" data-hp="0" data-tl="0" data-id="12" data-corner="0" data-top="410px" data-left="575px" data-color="" data-text="Şans Kartı Seç">
+                    <div class="container">
+                        <div class="name">Şans Kartı Seç</div>
+                        <i class="drawing fa fa-question"></i>
+                    </div>
+                </div>
+                <div class="space property" data-hp="-45" data-tl="0" data-id="11" data-corner="0" data-top="490px" data-left="575px" data-color="" data-text="Ayakkabı boyacısı bıçakladı">
+                    <div class="container">
+                        <div class="color-bar hp-n-area"></div>
+                        <div class="name three-line-name">Ayakkabı boyacısı bıçakladı</div>
+                        <div class="price">-45 HP</div>
+                    </div>
+                </div>
+                <div class="space property" data-hp="30" data-tl="0" data-id="10" data-corner="0" data-top="570px" data-left="575px" data-color="" data-text="Çingenelereden kaçmayı başardın">
+                    <div class="container">
+                        <div class="color-bar hp-p-area"></div>
+                        <div class="name three-line-name">Çingeneden kaçmayı başardın</div>
+                        <div class="price">30 HP</div>
+                    </div>
+                </div>
+                <div class="space property" data-hp="-25" data-tl="0" data-id="9" data-corner="0" data-top="650px" data-left="575px" data-color="" data-text="Sapık bakkal peşine takıldı">
+                    <div class="container">
+                        <div class="color-bar hp-n-area"></div>
+                        <div class="name three-line-name">Sapık bakkal taciz</div>
+                        <div class="price">-25 HP</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space corner free-parking" data-hp="0" data-tl="300" data-id="16" data-corner="1" data-top="90px" data-left="575px" data-text="Banka">
+                <div class="container">
+                    <div class="name">Banka</div>
+                    <i class="drawing">₺</i>
+                    <div class="name">Banka</div>
+                </div>
+            </div>
+
+            <div class="row horizontal-row top-row">
+                <div class="space property" data-hp="-110" data-tl="-100" data-id="17" data-corner="0" data-top="90px" data-left="680px" data-color="" data-text="Suriyeliler saldırdı">
+                    <div class="container">
+                        <div class="color-bar hp-n-area"></div>
+                        <div class="name three-line-name">Suriyeliler saldırdı</div>
+                        <div class="price">-110 HP, -100 ₺</div>
+                    </div>
+                </div>
+                <div class="space property" data-hp="150" data-tl="0" data-id="18" data-corner="0" data-top="90px" data-left="765px" data-color="" data-text="Devlet hastanesine gittin">
+                    <div class="container">
+                        <div class="color-bar hp-p-area"></div>
+                        <div class="name three-line-name">Devlet hastanesine gittin</div>
+                        <div class="price">150 HP</div>
+                    </div>
+                </div>
+                <div class="space property" data-hp="0" data-tl="250" data-id="19" data-corner="0" data-top="90px" data-left="845px" data-color="" data-text="Arkadaşının köpeğini çaldın">
+                    <div class="container">
+                        <div class="color-bar tl-p-area"></div>
+                        <div class="name three-line-name">Arkadaşının köpeğini çaldın</div>
+                        <div class="price">250 ₺</div>
+                    </div>
+                </div>
+                <div class="space chance" data-hp="0" data-tl="0" data-id="20" data-corner="0" data-top="90px" data-left="925px" data-color="" data-text="Şans Kartı Seç">
+                    <div class="container">
+                        <div class="name">Şans Kartı Seç</div>
+                        <i class="drawing fa fa-question"></i>
+                    </div>
+                </div>
+                <div class="space property" data-hp="-10" data-tl="0" data-id="21" data-corner="0" data-top="90px" data-left="1010px" data-color="" data-text="Eyleme denk geldin, biber gazı yedin">
+                    <div class="container">
+                        <div class="color-bar hp-n-area"></div>
+                        <div class="name three-line-name">Eyleme denk geldin, biber gazı yedin</div>
+                        <div class="price">-10 HP</div>
+                    </div>
+                </div>
+                <div class="space property" data-hp="0" data-tl="500" data-id="22" data-corner="0" data-top="90px" data-left="1090px" data-color="" data-text="Onlyfansçılar para dağıttı">
+                    <div class="container">
+                        <div class="color-bar tl-p-area"></div>
+                        <div class="name three-line-name">Onlyfansçılar para dağıttı</div>
+                        <div class="price">500 ₺</div>
+                    </div>
+                </div>
+                <div class="space property" data-hp="25" data-tl="0" data-id="23" data-corner="0" data-top="90px" data-left="1170px" data-color="" data-text="Kavga edenleri döverek ayırdın">
+                    <div class="container">
+                        <div class="color-bar tl-p-area"></div>
+                        <div class="name three-line-name">Kavga edenleri döverek ayırdın</div>
+                        <div class="price">25 HP</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space corner go-to-jail" data-hp="200" data-tl="0" data-id="24" data-corner="1" data-top="90px" data-left="1270px" data-text="Hastane">
+                <div class="container">
+                    <div class="name">Hastane</div>
+                    <i class="drawing fa fa-hospital-o"></i>
+                    <div class="name">Hastane</div>
+                </div>
+            </div>
+
+            <div class="row vertical-row right-row">
+                <div class="space property" data-hp="0" data-tl="2500" data-id="25" data-corner="0" data-top="170px" data-left="1270px" data-color="" data-text="Yerde bulduğun telefonu sattın">
+                    <div class="container">
+                        <div class="color-bar hp-p-area"></div>
+                        <div class="name three-line-name">Yerde bulduğun telefonu sattın</div>
+                        <div class="price">2500 ₺</div>
+                    </div>
+                </div>
+                <div class="space property" data-hp="-60" data-tl="-200" data-id="26" data-corner="0" data-top="250px" data-left="1270px" data-color="" data-text="ATMde para buldun">
+                    <div class="container">
+                        <div class="color-bar tl-p-area"></div>
+                        <div class="name three-line-name">Bekçiyle tartıştın</div>
+                        <div class="price">-60 HP, -200 ₺</div>
+                    </div>
+                </div>
+                <div class="space property" data-hp="-40" data-tl="-120" data-id="27" data-corner="0" data-top="330px" data-left="1270px" data-color="" data-text="Taksim cenk'ten hikaye dinledin">
+                    <div class="container">
+                        <div class="color-bar tl-n-area"></div>
+                        <div class="name three-line-name">Taksim Cenk'ten hikaye dinledin</div>
+                        <div class="price">-40 HP, -120 ₺</div>
+                    </div>
+                </div>
+                <div class="space chance" data-hp="0" data-tl="0" data-id="28" data-corner="0" data-top="410px" data-left="1270px" data-color="" data-text="Şans Kartı Seç">
+                    <div class="container">
+                        <div class="name">Şans Kartı Seç</div>
+                        <i class="drawing fa fa-question"></i>
+                    </div>
+                </div>
+                <div class="space property" data-hp="-100" data-tl="-50" data-id="29" data-corner="0" data-top="490px" data-left="1270px" data-color="" data-text="LGBTliler saldırdı">
+                    <div class="container">
+                        <div class="color-bar hp-n-area"></div>
+                        <div class="name three-line-name">LGBTliler saldırdı</div>
+                        <div class="price">-100 HP, -50 ₺</div>
+                    </div>
+                </div>
+                <div class="space property" data-hp="75" data-tl="0" data-id="30" data-corner="0" data-top="570px" data-left="1270px" data-color="" data-text="Masaja gittin">
+                    <div class="container">
+                        <div class="color-bar hp-p-area"></div>
+                        <div class="name three-line-name">Masaja gittin</div>
+                        <div class="price">75 HP</div>
+                    </div>
+                </div>
+                <div class="space property" data-hp="0" data-tl="-200" data-id="31" data-corner="0" data-top="650px" data-left="1270px" data-color="" data-text="Tarihi esere zarar verdin">
+                    <div class="container">
+                        <div class="color-bar tl-n-area"></div>
+                        <div class="name three-line-name">Tarihi esere zarar verdin</div>
+                        <div class="price">-200 ₺</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <div class="front">
+                    <i class="fa fa-question"></i>
+                </div>
+                <div class="back" data-hp="-10" data-tl="0" data-text="Şans kartı seçiminde değilsin. Şansını önceden görmeye çalıştığın için cezalandırıldın.">
+                    Şans kartı seçiminde değilsin. Şansını önceden görmeye çalıştığın için cezalandırıldın.
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/app.min.js" type="text/javascript"></script>
+    <script src="js/dice.min.js" type="text/javascript"></script>
+</body>
+</html>

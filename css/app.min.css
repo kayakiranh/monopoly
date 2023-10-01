@@ -1,0 +1,225 @@
+@import url(https://fonts.googleapis.com/css2?family=Oswald&display=swap);
+@import url(http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css);
+
+#diceArea, #rules {
+    position: absolute
+}
+
+#rules, #start {
+    padding: 10px;
+    display: block;
+    color: #2c3e50
+}
+
+#rules, #start, .startPart {
+    display: block
+}
+
+#rules, #start, #status {
+    width: max-content;
+    height: max-content
+}
+
+#rules, #start, #status, #tarihceLog {
+    height: max-content
+}
+
+#slider, .startPart {
+    width: 100%
+}
+
+#rules {
+    background: #ecf0f1;
+    left: 50px;
+    top: 120px;
+    font-size: 16px;
+    border: 2px solid #d35400;
+    border-radius: 10px
+}
+
+#mapSelect, #start {
+    border: 2px solid #d35400;
+    background-color: #ecf0f1;
+    font-size: 16px
+}
+
+#start {
+    margin: 0 auto;
+    position: relative;
+    top: calc((100% - 240px)/ 2)
+}
+
+#mapSelect {
+    float: left;
+    border-radius: 10px;
+    padding: 5px;
+    font-family: Oswald,sans-serif;
+    font-weight: 400;
+    cursor: pointer
+}
+
+#buyHpLink, #startGame {
+    text-decoration: none;
+    background-color: #ecf0f1;
+    padding: 5px 10px;
+    border: 2px solid #d35400;
+    border-radius: 10px;
+    float: right;
+    color: #2c3e50;
+    font-size: 16px
+}
+
+    #startGame:hover {
+        background-color: #d35400;
+        color: #ecf0f1
+    }
+
+.startPart > p {
+    margin-top: 5px;
+    margin-bottom: 5px
+}
+
+.startPart:last-child {
+    height: 40px
+}
+
+#diceArea {
+    left: 865px;
+    top: 230px;
+    font-size: 14px;
+    padding: 15px;
+    width: 160px;
+    height: 110px;
+    background-color: #d35400;
+    border-radius: 10px
+}
+
+#status, #tarihce {
+    background: #ecf0f1;
+    padding: 10px;
+    font-size: 16px;
+    color: #2c3e50;
+    position: absolute
+}
+
+#diceArea > p {
+    font-size: 12px;
+    color: #fff
+}
+
+#status {
+    left: 50px;
+    border: 2px solid #d35400;
+    border-radius: 10px
+}
+
+#tarihce {
+    right: 50px;
+    width: 470px;
+    border: 2px solid #d35400;
+    border-radius: 10px
+}
+
+#tarihceLog {
+    overflow-y: scroll;
+    max-height: 650px
+}
+
+p {
+    margin: 0;
+    padding: 0
+}
+
+i.fa.fa-heart {
+    color: #c0392b
+}
+
+#tl {
+    color: #8e44ad
+}
+
+#buyHp, #hpBar, #tlBar {
+    font-size: 30px;
+    display: inline;
+    margin: 15px
+}
+
+#player {
+    background-image: url(../image/app/genc.jpg);
+    background-size: contain;
+    width: 55px;
+    height: 60px;
+    position: absolute;
+    top: 760px;
+    left: 1270px;
+    z-index: 999
+}
+
+    #player:hover {
+        opacity: .2
+    }
+
+.hp-p-area {
+    background: #c0392b
+}
+
+.tl-p-area {
+    background: #8e44ad
+}
+
+.hp-n-area {
+    background: #f1c40f
+}
+
+.tl-n-area {
+    background: #2980b9
+}
+
+.card-container {
+    perspective: 1000px;
+    cursor: pointer
+}
+
+.back, .card-container, .front {
+    width: 153px;
+    height: 114px;
+    position: absolute;
+    left: 872px;
+    top: 564px
+}
+
+.card {
+    transition: .6s;
+    transform-style: preserve-3d;
+    position: relative
+}
+
+.back, .front {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0
+}
+
+.front {
+    z-index: 2;
+    transform: rotateY(0);
+    background: #e4002e
+}
+
+.back {
+    transform: rotateY(180deg);
+    border: 2px solid #e4002e;
+    padding: 5px;
+    background: #fafaf8;
+    color: #080808;
+    font-size: 15px;
+    text-align: center
+}
+
+.front i {
+    color: #fff;
+    font-size: 100px;
+    margin-left: 48px;
+    margin-top: 7px
+}
